@@ -21,11 +21,17 @@ GAP_MS = 2_000
 
 
 class DayWriter:
+    """Write flushed JSONL for the current UTC day so a crash does not eat the tape.
+
+    Completed days are gzipped. Python's GzipFile does not flush the compressor,
+    so a live `.jsonl.gz` would stay 0 bytes until exit.
+    """
+
     def __init__(self, raw_dir: Path) -> None:
         self.raw_dir = raw_dir
         self.raw_dir.mkdir(parents=True, exist_ok=True)
         self._day = ""
-        self._handle: gzip.GzipFile | TextIO | None = None
+        self._handle: TextIO | None = None
         self._lock = threading.Lock()
 
     def write(self, event: Event) -> None:
@@ -34,22 +40,37 @@ class DayWriter:
         with self._lock:
             self._rotate(day)
             assert self._handle is not None
-            self._handle.write(payload.encode("utf-8"))
+            self._handle.write(payload)
+            self._handle.flush()
 
     def close(self) -> None:
         with self._lock:
             if self._handle is not None:
                 self._handle.close()
                 self._handle = None
+            if self._day:
+                _gzip_day(self.raw_dir, self._day)
 
     def _rotate(self, day: str) -> None:
         if day == self._day and self._handle is not None:
             return
         if self._handle is not None:
             self._handle.close()
-        path = self.raw_dir / f"{day}.jsonl.gz"
-        self._handle = gzip.open(path, "ab")
+            self._handle = None
+            _gzip_day(self.raw_dir, self._day)
+        path = self.raw_dir / f"{day}.jsonl"
+        self._handle = path.open("a", encoding="utf-8")
         self._day = day
+
+
+def _gzip_day(raw_dir: Path, day: str) -> None:
+    src = raw_dir / f"{day}.jsonl"
+    if not src.exists() or src.stat().st_size == 0:
+        return
+    dst = raw_dir / f"{day}.jsonl.gz"
+    with src.open("rb") as incoming, gzip.open(dst, "ab") as outgoing:
+        outgoing.write(incoming.read())
+    src.unlink()
 
 
 class Recorder:

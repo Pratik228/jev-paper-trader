@@ -35,6 +35,8 @@ def test_day_writer_gzip_and_replay(tmp_path: Path) -> None:
     writer = DayWriter(tmp_path / "raw")
     writer.write(_book(1_700_000_000_000))
     writer.write(TradeEvent(1_700_000_000_200, "binance", "BTCUSDT", 100.0, 0.1, "buy", recv_ts_ms=1_700_000_000_200))
+    live = next((tmp_path / "raw").glob("*.jsonl"))
+    assert live.stat().st_size > 0
     writer.close()
     files = list((tmp_path / "raw").glob("*.jsonl.gz"))
     assert files
