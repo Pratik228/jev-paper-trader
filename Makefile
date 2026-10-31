@@ -9,6 +9,14 @@ test:
 record:
 	$(PYTHON) -m jev_paper.data.record --config config.yaml --data-dir data
 
+record-daemon:
+	bash scripts/ensure_record.sh
+
+record-status:
+	$(PYTHON) scripts/check_data.py --data-dir data; \
+	tmux has-session -t jev-record 2>/dev/null && echo "tmux: jev-record up" || echo "tmux: jev-record down"; \
+	pgrep -af 'jev_paper.data.record' || echo "recorder process: none"
+
 check-data:
 	$(PYTHON) scripts/check_data.py --data-dir data
 
