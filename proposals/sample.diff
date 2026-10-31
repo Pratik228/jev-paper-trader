@@ -1,0 +1,14 @@
+--- config.yaml
++++ config.yaml
+@@ -48,9 +48,9 @@
+   gamma: 0.1
+   k: 1.5
+   horizon_s: 60
+-  min_half_spread_bps: 2.0
++  min_half_spread_bps: 3.0
+   max_half_spread_bps: 40.0
+-  baseline_half_spread_bps: 6.0
++  baseline_half_spread_bps: 8.0
+   baseline_skew_bps_per_btc: 400.0
+   sigma_floor: 1.0e-8
+   requote_bps: 1.0

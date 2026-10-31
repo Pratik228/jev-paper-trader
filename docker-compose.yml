@@ -1,0 +1,51 @@
+# Public market data in. Simulated fills out. No exchange keys.
+# Prefer `recorder` overnight. `bot` is the paper strategies and should wait for Jev credits.
+services:
+  recorder:
+    build: .
+    restart: always
+    command: ["python", "-m", "jev_paper.data.record", "--config", "/app/config.yaml", "--data-dir", "/app/data"]
+    volumes:
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml:ro
+
+  bot:
+    build: .
+    restart: always
+    command: ["python", "-m", "jev_paper.loop", "--config", "/app/config.yaml", "--log-dir", "/app/logs"]
+    environment:
+      TYPESAFE_API_KEY: ${TYPESAFE_API_KEY:-}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+    volumes:
+      - ./logs:/app/logs
+      - ./config.yaml:/app/config.yaml:ro
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=2)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  dashboard:
+    build: .
+    restart: always
+    command:
+      [
+        "python",
+        "-m",
+        "jev_paper.dashboard.app",
+        "--log-dir",
+        "/app/logs",
+        "--report-dir",
+        "/app/reports",
+        "--port",
+        "8081",
+      ]
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./logs:/app/logs:ro
+      - ./reports:/app/reports:ro

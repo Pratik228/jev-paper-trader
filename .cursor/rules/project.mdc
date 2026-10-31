@@ -1,0 +1,13 @@
+---
+description: Jev paper trader project rules
+alwaysApply: true
+---
+- This is a PAPER TRADING system. Never write code that places real orders, holds private keys, or connects funds.
+- Architecture: code computes state → Jev answers narrow judgments → code policy picks action → risk engine can veto anything.
+- Never put arithmetic or thresholds in Jev prompts. Thresholds live in config.yaml.
+- All Jev calls go through one module (decision/jev_client.py) behind an interface, so it can be mocked.
+- Pin Jev model version; log version, latency, and full answers with every call.
+- If a decision arrives after the next block, it is stale: skip it.
+- Every state field uses past data only. No lookahead.
+- Every fill and every cancel is charged fees + gas in the simulator.
+- Log everything as JSONL under logs/. Write tests for each module. Python 3.10+, type hints, small files.

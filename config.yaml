@@ -1,0 +1,101 @@
+feed:
+  venue: binance
+  pair: BTCUSDT
+  # Public market data only. Do not point these at an order endpoint.
+  websocket_url: wss://stream.binance.com:9443/stream?streams=btcusdt@depth20@100ms/btcusdt@trade
+  rest_depth_url: https://api.binance.com/api/v3/depth
+  rest_trades_url: https://api.binance.com/api/v3/trades
+  ws_fails_before_poll: 3
+  poll_interval_s: 1.0
+  reconnect_max_s: 30.0
+  request_timeout_s: 5.0
+
+state:
+  ret_1m_ms: 60000
+  ret_5m_ms: 300000
+  ret_30m_ms: 1800000
+  vol_24h_ms: 86400000
+  trade_window_ms: 60000
+  vol_sample_ms: 1000
+
+jev:
+  # mock until a TypeSafe key is approved. Then set client: jev and export TYPESAFE_API_KEY.
+  client: mock
+  # Pinned. jev-latest is intentionally not the default.
+  model: jev-1.14.0
+  # Day-5 cost control. Raise only after a spend cap is set on the TypeSafe account.
+  call_every_n_blocks: 5
+  timeout_s: 0.8
+  block_ms: 1000
+
+policy:
+  min_choice_confidence: 0.55
+  toxic_flow_pull: 0.72
+  liquidity_stress_widen: 0.65
+  quote_env_stand_down_max: 0.5
+  quote_env_wide_max: 1.5
+  inventory_skew_hard_min: 2.0
+  inventory_reduce_min: 2.6
+  direction_skew_bps: 1.5
+  inventory_skew_bps: 4.0
+  widen_multiplier: 1.75
+  wide_multiplier: 2.5
+  code_vol_ratio_stand_down: 2.5
+  code_spread_bps_pull: 25.0
+  code_imbalance_skew: 0.35
+
+pricing:
+  gamma: 0.1
+  k: 1.5
+  horizon_s: 60
+  min_half_spread_bps: 2.0
+  max_half_spread_bps: 40.0
+  baseline_half_spread_bps: 6.0
+  baseline_skew_bps_per_btc: 400.0
+  sigma_floor: 1.0e-8
+  requote_bps: 1.0
+
+risk:
+  max_position_usd: 500
+  max_daily_loss_usd: 25
+  max_drawdown_usd: 40
+  max_order_usd: 150
+  max_data_age_ms: 5000
+  max_decision_latency_ms: 900
+  max_consecutive_api_errors: 5
+  quote_size: 0.01
+
+fees:
+  # Venue profile is selected by feed.venue. Binance spot is a CEX: no gas,
+  # and Regular User maker/taker is 0.100% / 0.100% (10 bps) with no BNB discount.
+  # https://www.binance.com/en/fee/trading
+  # Cancels and unfilled places are free on Binance spot. Only fills pay.
+  venue: binance
+  venues:
+    binance:
+      maker_bps: 10.0
+      taker_bps: 10.0
+      gas_per_event: 0.0
+      charge_place: false
+      charge_cancel: false
+      charge_fill_gas: false
+      bnb_discount: false
+    onchain:
+      maker_bps: 0.0
+      taker_bps: 0.0
+      gas_per_event: 0.01
+      charge_place: true
+      charge_cancel: true
+      charge_fill_gas: true
+
+data_dir: data
+
+alerts:
+  telegram_bot_token_env: TELEGRAM_BOT_TOKEN
+  telegram_chat_id_env: TELEGRAM_CHAT_ID
+
+health:
+  host: 0.0.0.0
+  port: 8080
+
+log_dir: logs

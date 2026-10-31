@@ -1,0 +1,14 @@
+.venv/
+*.egg-info/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+logs/**
+!logs/.gitkeep
+data/**
+!data/.gitkeep
+!data/raw/
+!data/raw/.gitkeep
+tests/fixtures/session_events.jsonl
+.ipynb_checkpoints/

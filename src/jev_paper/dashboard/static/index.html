@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jev paper dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; font: 15px/1.45 "IBM Plex Sans", "Segoe UI", sans-serif; background: #121417; color: #e7e3d8; }
+    header, main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    h1 { font-size: 1.4rem; margin: 0 0 4px; }
+    h2 { font-size: 1.05rem; margin: 28px 0 8px; }
+    p.note { color: #b7b1a4; margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    .card, table, pre, canvas { background: #1c2026; border: 1px solid #343a44; border-radius: 8px; }
+    .card { padding: 12px 14px; }
+    .k { color: #b7b1a4; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #343a44; vertical-align: top; }
+    pre { padding: 12px; white-space: pre-wrap; }
+    canvas { padding: 8px; }
+    .empty { color: #d7a15f; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Paper desk</h1>
+    <p class="note">Read only. This page cannot place, cancel, or resize a quote. Calibration uses the tail of the logs; the notebook reads the full files.</p>
+  </header>
+  <main>
+    <h2>Live state</h2>
+    <div id="live" class="grid"></div>
+    <h2>Equity after fees and gas</h2>
+    <canvas id="pnl" height="120"></canvas>
+    <div id="pnl-table"></div>
+    <h2>Calibration</h2>
+    <canvas id="cal" height="120"></canvas>
+    <div id="cal-table"></div>
+    <h2>Today's decisions</h2>
+    <div id="decisions"></div>
+    <h2>Latest analyst report</h2>
+    <pre id="report">Loading…</pre>
+  </main>
+  <script>
+    const money = (n) => (n === null || n === undefined || Number.isNaN(Number(n))) ? "—" : Number(n).toFixed(4);
+    function table(headers, rows) {
+      const head = "<tr>" + headers.map((h) => "<th>" + h + "</th>").join("") + "</tr>";
+      const body = rows.map((row) => "<tr>" + row.map((cell) => "<td>" + cell + "</td>").join("") + "</tr>").join("");
+      return "<table>" + head + body + "</table>";
+    }
+    async function refresh() {
+      const [live, pnl, cal, decisions, report] = await Promise.all([
+        fetch("/api/live").then((r) => r.json()),
+        fetch("/api/pnl").then((r) => r.json()),
+        fetch("/api/calibration").then((r) => r.json()),
+        fetch("/api/decisions").then((r) => r.json()),
+        fetch("/api/report").then((r) => r.text()),
+      ]);
+      const snap = live.snapshot;
+      const cards = [];
+      if (!snap) {
+        cards.push('<div class="card empty">No snapshots in this log directory yet.</div>');
+      } else {
+        cards.push(`<div class="card"><div class="k">Mid</div><div>${money(snap.mid)}</div></div>`);
+        cards.push(`<div class="card"><div class="k">Spread bps</div><div>${money(snap.spread_bps)}</div></div>`);
+        cards.push(`<div class="card"><div class="k">Imbalance</div><div>${money(snap.imbalance)}</div></div>`);
+        cards.push(`<div class="card"><div class="k">Block</div><div>${snap.block_id}</div></div>`);
+      }
+      for (const [name, row] of Object.entries(live.strategies || {})) {
+        if (!row) {
+          cards.push(`<div class="card"><div class="k">${name}</div><div class="empty">no rows</div></div>`);
+          continue;
+        }
+        const action = (row.decision || {}).action || "—";
+        cards.push(`<div class="card"><div class="k">${name}</div><div>${action}</div><div>equity ${money(row.equity)} · inv ${money(row.inventory)}</div></div>`);
+      }
+      document.getElementById("live").innerHTML = cards.join("");
+
+      const names = Object.keys(pnl.strategies || {});
+      const summaryRows = names.map((name) => {
+        const s = pnl.strategies[name].summary;
+        const share = s.fee_share_of_gross === null ? "—" : (100 * s.fee_share_of_gross).toFixed(1) + "%";
+        return [name, money(s.net_pnl), money(s.gross_pnl), money(s.fees_paid), money(s.gas_paid), share, s.fills];
+      });
+      document.getElementById("pnl-table").innerHTML = summaryRows.length
+        ? table(["Strategy", "Net", "Gross", "Fees", "Gas", "Fee share", "Fills"], summaryRows)
+        : '<p class="empty">No outcomes yet.</p>';
+      if (window.Chart && names.some((name) => pnl.strategies[name].curve.length)) {
+        const colors = ["#7eb6ff", "#e3b341", "#8fce8f"];
+        const datasets = names.map((name, i) => {
+          const curve = pnl.strategies[name].curve;
+          const t0 = curve.length ? curve[0].ts_ms : 0;
+          return {
+            label: name,
+            data: curve.map((p) => ({x: (p.ts_ms - t0) / 60000, y: p.equity})),
+            borderColor: colors[i % colors.length],
+            pointRadius: 0,
+            tension: 0.15,
+          };
+        });
+        const ctx = document.getElementById("pnl");
+        if (ctx._chart) ctx._chart.destroy();
+        ctx._chart = new Chart(ctx, {type: "line", data: {datasets}, options: {parsing: false, animation: false, scales: {x: {type: "linear"}}}});
+      }
+
+      const buckets = cal.buckets || [];
+      document.getElementById("cal-table").innerHTML = table(
+        ["Confidence", "N", "Hit rate", "Stale rate"],
+        buckets.map((b, i) => [
+          b.lo.toFixed(1) + "–" + b.hi.toFixed(1),
+          b.n,
+          b.hit_rate === null ? "—" : (100 * b.hit_rate).toFixed(1) + "%",
+          i === 0 ? (cal.stale.rate === null ? "—" : (100 * cal.stale.rate).toFixed(1) + "%") : "",
+        ])
+      );
+      if (window.Chart) {
+        const cctx = document.getElementById("cal");
+        if (cctx._chart) cctx._chart.destroy();
+        cctx._chart = new Chart(cctx, {
+          type: "bar",
+          data: {
+            labels: buckets.map((b) => b.lo.toFixed(1)),
+            datasets: [{label: "hit rate", data: buckets.map((b) => b.hit_rate || 0), backgroundColor: "#7eb6ff"}],
+          },
+          options: {animation: false, scales: {y: {min: 0, max: 1}}},
+        });
+      }
+
+      const rows = (decisions.decisions || []).slice(-12).reverse();
+      document.getElementById("decisions").innerHTML = rows.length ? table(
+        ["Block", "Strategy", "Regime", "Direction", "Toxic", "Stale", "Model", "ms"],
+        rows.map((d) => [
+          d.block_id,
+          d.strategy,
+          (d.regime || {}).choice || d.error || "—",
+          (d.direction || {}).choice || "—",
+          d.toxic_flow === null || d.toxic_flow === undefined ? "—" : Number(d.toxic_flow).toFixed(2),
+          d.stale ? "yes" : "no",
+          d.model_version || "—",
+          d.latency_ms === null || d.latency_ms === undefined ? "—" : Number(d.latency_ms).toFixed(1),
+        ])
+      ) : '<p class="empty">No decisions yet.</p>';
+      document.getElementById("report").textContent = report;
+    }
+    refresh().catch((err) => {
+      document.getElementById("report").textContent = String(err);
+    });
+    setInterval(() => refresh().catch(() => {}), 4000);
+  </script>
+</body>
+</html>

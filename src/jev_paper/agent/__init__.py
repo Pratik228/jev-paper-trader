@@ -1,0 +1,1 @@
+"""Nightly analyst package."""
