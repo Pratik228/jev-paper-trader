@@ -1,10 +1,21 @@
 # jev-paper-trader
 
-A paper market maker for Binance **BTCUSDT** spot, built so that a decision model can sit in one slot and be measured against plain code on the same tape.
+**A test bench for AI decision models in market making.** A paper market maker for Binance BTCUSDT spot where a model sits in one slot and is measured against plain code on the same recorded tape.
+
+[![tests](https://github.com/Pratik228/jev-paper-trader/actions/workflows/tests.yml/badge.svg)](https://github.com/Pratik228/jev-paper-trader/actions/workflows/tests.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
+![paper only](https://img.shields.io/badge/orders-paper%20only-success.svg)
+
+> **TL;DR, from 18 days of real Binance data (82.6M events):**
+> - **Every strategy lost money.** At retail fees, fees were 82–91% of each loss: BTC's spread is one tick (≈0.0013 bps), and a 10 bps fee is about 7,000× that.
+> - **No edge before fees either.** With fees set to zero, the code-only arm was green on 9 of 19 days and still finished −$91; the best arm finished −$83. The quotes that fill are the ones the market runs through.
+> - **A bad model is worse than no model.** An uninformed (mock) model in the decision slot hit the daily kill switch on all 19 days; the two no-model arms hit it on 8 and 9.
+> - **The risk layer held.** Worst day for any arm: −$26.72 against a $25 limit.
+
+![Cumulative PnL after fees](reports/realtape/pnl.png)
 
 Code builds the market state. A decision model (TypeSafe's **Jev**, or a stand-in) answers six narrow, typed questions. Code turns the answers into quotes. A risk engine can veto anything. Nothing in this repo places a live order, holds a private key, or touches an order endpoint, and a test enforces that.
-
-[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## Results on 18 days of real Binance data
 
@@ -21,14 +32,14 @@ I recorded the public BTCUSDT order book (top 20 levels, 100 ms) and every trade
 
 ### At Binance Regular-User fees (10 bps maker and taker)
 
-| Arm | Net after fees | Before fees | Fees paid | Fills | Green days | Days the kill switch fired | Mean hours to kill |
+| Arm | Net after fees | Before fees | Fees paid | Fills | Green days | Days the kill switch fired | Hours to kill (mean, on days it fired) |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | `baseline` | **−297.74** | −42.45 | 255.29 | 10,630 | 1 / 19 | 9 | 12.3 |
 | `code_only` | **−359.71** | −63.76 | 295.94 | 13,243 | 1 / 19 | 8 | 17.3 |
 | `jev_gated` (mock) | −478.09 | −45.03 | 433.06 | 14,020 | 0 / 19 | 19 | 4.1 |
 | `jev_ungated` (mock) | −477.44 | −55.63 | 421.80 | 13,558 | 0 / 19 | 19 | 4.1 |
 
-![Cumulative PnL after fees](reports/realtape/pnl.png)
+The chart at the top of this page is this run.
 
 ### Same tape, fees set to zero (counterfactual)
 
@@ -117,22 +128,17 @@ python3 -m venv .venv
 .venv/bin/pip install -e ".[dev]"
 make test
 
-# 1. record public data (book + trades, no keys) -> data/raw/YYYY-MM-DD.jsonl.gz
-make record
+make record                     # public book + trades, no keys -> data/raw/YYYY-MM-DD.jsonl.gz
+make replay-real WORKERS=7      # each day in data/raw as its own session, in parallel
+make results                    # tables + chart -> reports/realtape/
 
-# 2. replay every day as its own session, in parallel
-PYTHONPATH=src .venv/bin/python scripts/replay.py --per-day --workers 7 --tape data/raw --log-dir logs/realtape
-
-# 3. tables and chart
-PYTHONPATH=src .venv/bin/python scripts/summarize_replay.py --log-dir logs/realtape --out-dir reports/realtape
-
-# fee-free counterfactual
-PYTHONPATH=src .venv/bin/python scripts/replay.py --per-day --workers 7 --config config.zero-fee.yaml --tape data/raw --log-dir logs/realtape-zerofee
+make replay-zero-fee WORKERS=7  # optional: same tape with fees at zero
+make results-zero-fee
 ```
 
-The raw tape is about 700 MB gzipped and is not in the repo. Replay costs roughly 70 CPU-seconds per tape-hour and writes about 0.5 GB of logs per day.
+The 18-day tape behind these results is not redistributed: Binance's terms restrict sharing its market data. You don't need it. A few hours of `make record` gives you a tape that runs through exactly the same pipeline, and any day you record is a fresh out-of-sample test of the numbers above. Replay costs roughly 70 CPU-seconds per tape-hour and writes about 0.5 GB of logs per day.
 
-Other targets: `make sample` (40-minute synthetic tape, quick smoke test), `make dashboard` (read-only, port 8081), `make check-data` (per-day counts and gaps). `docker compose up -d` runs the bot with `/health` on 8080.
+Other targets: `make sample` (a 40-minute synthetic tape for a quick smoke test of the whole pipeline; its output is in `reports/sample/`), `make dashboard` (read-only, port 8081), `make check-data` (per-day counts and gaps). `docker compose up -d` runs the bot with `/health` on 8080.
 
 Optional integrations, all off by default: Telegram alerts (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`), a real Jev key (`TYPESAFE_API_KEY`), and an LLM-written nightly report. See `.env.example`.
 

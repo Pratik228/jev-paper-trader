@@ -1,7 +1,7 @@
 PYTHON ?= $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi)
 export PYTHONPATH := src
 
-.PHONY: test replay sample dashboard analyst record check-data
+.PHONY: test replay replay-real results replay-zero-fee results-zero-fee sample dashboard analyst record check-data
 
 test:
 	$(PYTHON) -m pytest -q
@@ -22,6 +22,22 @@ check-data:
 
 replay:
 	$(PYTHON) scripts/replay.py --config config.yaml --tape tests/fixtures/sample_events.jsonl --log-dir logs/replay
+
+WORKERS ?= 4
+
+# Every day in data/raw as its own session, in parallel.
+replay-real:
+	$(PYTHON) scripts/replay.py --per-day --workers $(WORKERS) --tape data/raw --log-dir logs/realtape
+
+results:
+	$(PYTHON) scripts/summarize_replay.py --log-dir logs/realtape --out-dir reports/realtape
+
+# Same tape with fees at zero, to measure edge before fees.
+replay-zero-fee:
+	$(PYTHON) scripts/replay.py --per-day --workers $(WORKERS) --config config.zero-fee.yaml --tape data/raw --log-dir logs/realtape-zerofee
+
+results-zero-fee:
+	$(PYTHON) scripts/summarize_replay.py --log-dir logs/realtape-zerofee --out-dir reports/realtape-zerofee --title "Counterfactual: same tape with zero trading fees (edge before fees)"
 
 sample:
 	$(PYTHON) scripts/make_fixture.py --out tests/fixtures/session_events.jsonl --minutes 40
