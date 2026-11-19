@@ -57,7 +57,10 @@ def _scan(path: Path) -> tuple[int, int | None, int | None, int, int]:
             line = line.strip()
             if not line:
                 continue
-            row = json.loads(line)
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError:
+                continue  # torn or NUL-padded line from an interrupted write
             events += 1
             kind = row.get("kind")
             if kind == "book":

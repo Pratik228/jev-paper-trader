@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import queue
 import time
+from collections.abc import Iterable, Iterator
 from dataclasses import dataclass, replace
 from pathlib import Path
 
@@ -37,35 +38,35 @@ class Touch:
 
 
 def run_replay(
-    events: list[Event],
+    events: Iterable[Event],
     config: AppConfig,
     log_dir: Path,
     *,
     client: DecisionClient | None = None,
     alerter: Alerter | None = None,
 ) -> None:
-    if not events:
+    stream = _Peek(iter(events))
+    first = stream.peek()
+    if first is None:
         return
     engine = StateEngine(config.state)
     accounts = {spec.name: PaperAccount() for spec in SPECS}
     policy = PolicyEngine(config.policy)
     risk = RiskEngine(config.risk)
     client = client or build_client(config.jev)
-    clock = SimClock(events[0].ts_ms)
+    clock = SimClock(first.ts_ms)
     touch = Touch()
     paths = _paths(log_dir)
-    index = 0
     block_id = 0
-    t = events[0].ts_ms
-    end = events[-1].ts_ms
-    while t <= end:
-        index = _fold(engine, events, index, t, touch, accounts, config, match=False)
+    t = first.ts_ms
+    while stream.peek() is not None or t <= stream.last_ts:
+        _fold(engine, stream, t, touch, accounts, config, match=False)
         clock.t = t
         _decide_all(
             engine, accounts, policy, risk, client, config, clock, touch, paths, block_id, t, alerter
         )
         next_t = t + config.jev.block_ms
-        index = _fold(engine, events, index, next_t, touch, accounts, config, match=True)
+        _fold(engine, stream, next_t, touch, accounts, config, match=True)
         t = next_t
         block_id += 1
 
@@ -150,27 +151,47 @@ def _drain(
         engine.update(event)
 
 
+class _Peek:
+    """One-event lookahead over a stream, so replays never hold a whole tape in memory."""
+
+    def __init__(self, source: Iterator[Event]) -> None:
+        self._source = source
+        self._next: Event | None = None
+        self._done = False
+        self.last_ts = -1
+
+    def peek(self) -> Event | None:
+        if self._next is None and not self._done:
+            self._next = next(self._source, None)
+            self._done = self._next is None
+        return self._next
+
+    def pop(self) -> Event:
+        event = self.peek()
+        assert event is not None
+        self._next = None
+        self.last_ts = event.ts_ms
+        return event
+
+
 def _fold(
     engine: StateEngine,
-    events: list[Event],
-    index: int,
+    stream: _Peek,
     until_ms: int,
     touch: Touch,
     accounts: dict[str, PaperAccount],
     config: AppConfig,
     *,
     match: bool,
-) -> int:
-    while index < len(events) and events[index].ts_ms <= until_ms:
-        event = events[index]
+) -> None:
+    while (head := stream.peek()) is not None and head.ts_ms <= until_ms:
+        event = stream.pop()
         if match and isinstance(event, TradeEvent):
             for account in accounts.values():
                 if not account.halted:
                     account.pending_events.extend(match_trade(account, event, config.fees))
         _note(touch, event)
         engine.update(event)
-        index += 1
-    return index
 
 
 def _note(touch: Touch, event: Event) -> None:
@@ -404,9 +425,7 @@ def _paths(log_dir: Path) -> dict[str, Path]:
         "decisions": log_dir / "decisions.jsonl",
         "outcomes": log_dir / "outcomes.jsonl",
         "alerts": log_dir / "alerts.jsonl",
-        "jev_gated": log_dir / "outcomes_jev_gated.jsonl",
-        "jev_ungated": log_dir / "outcomes_jev_ungated.jsonl",
-        "baseline": log_dir / "outcomes_baseline.jsonl",
+        **{spec.name: log_dir / f"outcomes_{spec.name}.jsonl" for spec in SPECS},
     }
 
 
@@ -425,7 +444,7 @@ def main() -> None:
         run_record(Path(args.config), Path(config.data_dir))
         return
     if args.replay:
-        run_replay(list(read_events(args.replay)), config, log_dir)
+        run_replay(read_events(args.replay), config, log_dir)
         return
     run_live(config, log_dir)
 

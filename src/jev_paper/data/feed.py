@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import sys
 import time
 from collections.abc import Callable, Iterator
 from pathlib import Path
@@ -151,10 +152,17 @@ def read_events(path: str | Path) -> Iterator[Event]:
     for file_path in _event_files(path):
         opener: Any = gzip.open if _gzipped(file_path) else open
         with opener(file_path, "rt", encoding="utf-8") as handle:
-            for line in handle:
+            for number, line in enumerate(handle, 1):
                 line = line.strip()
-                if line:
-                    yield event_from_dict(json.loads(line))
+                if not line:
+                    continue
+                try:
+                    raw = json.loads(line)
+                except json.JSONDecodeError:
+                    # A recorder stopped mid-write leaves one torn line. Skip it, say so.
+                    print(f"skipping unreadable line {number} in {file_path.name}", file=sys.stderr)
+                    continue
+                yield event_from_dict(raw)
 
 
 def _gzipped(path: Path) -> bool:

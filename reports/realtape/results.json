@@ -1,0 +1,1008 @@
+{
+  "totals": {
+    "jev_gated": {
+      "days": 19,
+      "net_pnl": -478.0925748403261,
+      "gross_pnl": -45.0277250064894,
+      "fees_paid": 433.0648498338367,
+      "fills": 14020,
+      "maker_fills": 14001,
+      "taker_fills": 19,
+      "green_days": 0,
+      "halted_days": 19,
+      "worst_day": -25.372685909748895,
+      "best_day": -25.015505917060835
+    },
+    "jev_ungated": {
+      "days": 19,
+      "net_pnl": -477.43913654247285,
+      "gross_pnl": -55.634794530794736,
+      "fees_paid": 421.8043420116781,
+      "fills": 13558,
+      "maker_fills": 13539,
+      "taker_fills": 19,
+      "green_days": 0,
+      "halted_days": 19,
+      "worst_day": -25.304455285030826,
+      "best_day": -25.016210492609936
+    },
+    "code_only": {
+      "days": 19,
+      "net_pnl": -359.7059810470379,
+      "gross_pnl": -63.76360912029294,
+      "fees_paid": 295.9423719267449,
+      "fills": 13243,
+      "maker_fills": 13235,
+      "taker_fills": 8,
+      "green_days": 1,
+      "halted_days": 8,
+      "worst_day": -26.375065799332333,
+      "best_day": 0.8392348491138364
+    },
+    "baseline": {
+      "days": 19,
+      "net_pnl": -297.7434459113649,
+      "gross_pnl": -42.45486634414398,
+      "fees_paid": 255.28857956722092,
+      "fills": 10630,
+      "maker_fills": 10621,
+      "taker_fills": 9,
+      "green_days": 1,
+      "halted_days": 9,
+      "worst_day": -26.71825942440654,
+      "best_day": 0.7201132956586775
+    }
+  },
+  "days": {
+    "2026-10-31": {
+      "jev_gated": {
+        "hours": 15.09,
+        "net_pnl": -25.05909774926886,
+        "gross_pnl": -3.935440134276231,
+        "fees_paid": 21.12365761499263,
+        "fills": 481,
+        "maker_fills": 480,
+        "taker_fills": 1,
+        "max_drawdown": 25.05909774926886,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 15.09,
+        "net_pnl": -25.081624329434323,
+        "gross_pnl": -4.199369085607771,
+        "fees_paid": 20.882255243826553,
+        "fills": 449,
+        "maker_fills": 448,
+        "taker_fills": 1,
+        "max_drawdown": 25.081624329434323,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 15.09,
+        "net_pnl": -10.773928205212542,
+        "gross_pnl": 0.9095068187651094,
+        "fees_paid": 11.683435023977651,
+        "fills": 498,
+        "maker_fills": 498,
+        "taker_fills": 0,
+        "max_drawdown": 11.204035801168402,
+        "halted": false,
+        "end_inventory": 0.006446456773918472
+      },
+      "baseline": {
+        "hours": 15.09,
+        "net_pnl": -0.4607627494076496,
+        "gross_pnl": 0.4392372505923501,
+        "fees_paid": 0.8999999999999997,
+        "fills": 20,
+        "maker_fills": 20,
+        "taker_fills": 0,
+        "max_drawdown": 0.9772503780562545,
+        "halted": false,
+        "end_inventory": 0.0038725366765122765
+      }
+    },
+    "2026-11-01": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.03171884694612,
+        "gross_pnl": -4.08327004074928,
+        "fees_paid": 20.94844880619684,
+        "fills": 574,
+        "maker_fills": 573,
+        "taker_fills": 1,
+        "max_drawdown": 25.03171884694612,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.080276702549344,
+        "gross_pnl": -3.9199164983166277,
+        "fees_paid": 21.160360204232717,
+        "fills": 599,
+        "maker_fills": 598,
+        "taker_fills": 1,
+        "max_drawdown": 25.080276702549344,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -22.244256526650588,
+        "gross_pnl": 1.5215137638656415,
+        "fees_paid": 23.76577029051623,
+        "fills": 978,
+        "maker_fills": 978,
+        "taker_fills": 0,
+        "max_drawdown": 22.41015003242279,
+        "halted": false,
+        "end_inventory": -0.0025615387888455526
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": 0.7201132956586775,
+        "gross_pnl": 2.6701132956586786,
+        "fees_paid": 1.950000000000001,
+        "fills": 91,
+        "maker_fills": 91,
+        "taker_fills": 0,
+        "max_drawdown": 1.5476601567058026,
+        "halted": false,
+        "end_inventory": -0.0018803108622761707
+      }
+    },
+    "2026-11-02": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.1415620147189,
+        "gross_pnl": -3.5555776036624422,
+        "fees_paid": 21.585984411056458,
+        "fills": 631,
+        "maker_fills": 630,
+        "taker_fills": 1,
+        "max_drawdown": 25.1415620147189,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.114479824375607,
+        "gross_pnl": -3.3318278188556896,
+        "fees_paid": 21.782652005519918,
+        "fills": 614,
+        "maker_fills": 613,
+        "taker_fills": 1,
+        "max_drawdown": 25.114479824375607,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -23.008835015251464,
+        "gross_pnl": 1.4074280036220834,
+        "fees_paid": 24.416263018873547,
+        "fills": 1033,
+        "maker_fills": 1033,
+        "taker_fills": 0,
+        "max_drawdown": 23.2301892060637,
+        "halted": false,
+        "end_inventory": 0.006510417376830015
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -2.9975601173185424,
+        "gross_pnl": 2.0034668982224373,
+        "fees_paid": 5.00102701554098,
+        "fills": 238,
+        "maker_fills": 238,
+        "taker_fills": 0,
+        "max_drawdown": 7.316180830787545,
+        "halted": false,
+        "end_inventory": 0.0013145235990500107
+      }
+    },
+    "2026-11-03": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.137472174886653,
+        "gross_pnl": -2.4933344645363036,
+        "fees_paid": 22.64413771035035,
+        "fills": 611,
+        "maker_fills": 610,
+        "taker_fills": 1,
+        "max_drawdown": 25.137472174886653,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.027484488192787,
+        "gross_pnl": -3.327191052984425,
+        "fees_paid": 21.700293435208362,
+        "fills": 617,
+        "maker_fills": 616,
+        "taker_fills": 1,
+        "max_drawdown": 25.027484488192787,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -26.08533928235812,
+        "gross_pnl": -4.328089570127201,
+        "fees_paid": 21.75724971223092,
+        "fills": 934,
+        "maker_fills": 933,
+        "taker_fills": 1,
+        "max_drawdown": 28.22903478153495,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -4.522894382399144,
+        "gross_pnl": -0.7223527695282859,
+        "fees_paid": 3.8005416128708585,
+        "fills": 136,
+        "maker_fills": 136,
+        "taker_fills": 0,
+        "max_drawdown": 5.480257212304139,
+        "halted": false,
+        "end_inventory": -0.0012934248385528958
+      }
+    },
+    "2026-11-04": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.25560011619497,
+        "gross_pnl": -2.203644919199281,
+        "fees_paid": 23.05195519699569,
+        "fills": 721,
+        "maker_fills": 720,
+        "taker_fills": 1,
+        "max_drawdown": 25.25560011619497,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.055621369933142,
+        "gross_pnl": -2.776838063084835,
+        "fees_paid": 22.278783306848307,
+        "fills": 685,
+        "maker_fills": 684,
+        "taker_fills": 1,
+        "max_drawdown": 25.055621369933142,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -26.375065799332333,
+        "gross_pnl": -12.326580945374888,
+        "fees_paid": 14.048484853957445,
+        "fills": 637,
+        "maker_fills": 636,
+        "taker_fills": 1,
+        "max_drawdown": 26.4085953210743,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -25.37325966040561,
+        "gross_pnl": -6.1090700594387215,
+        "fees_paid": 19.264189600966887,
+        "fills": 789,
+        "maker_fills": 788,
+        "taker_fills": 1,
+        "max_drawdown": 25.37325966040561,
+        "halted": true,
+        "end_inventory": 0.0
+      }
+    },
+    "2026-11-05": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.372685909748895,
+        "gross_pnl": -4.027733675641247,
+        "fees_paid": 21.344952234107648,
+        "fills": 750,
+        "maker_fills": 749,
+        "taker_fills": 1,
+        "max_drawdown": 25.372685909748895,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.09415211167076,
+        "gross_pnl": -4.071874806443564,
+        "fees_paid": 21.022277305227195,
+        "fills": 785,
+        "maker_fills": 784,
+        "taker_fills": 1,
+        "max_drawdown": 25.09415211167076,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -25.41884309033162,
+        "gross_pnl": -11.727529752197343,
+        "fees_paid": 13.691313338134277,
+        "fills": 578,
+        "maker_fills": 577,
+        "taker_fills": 1,
+        "max_drawdown": 25.41884309033162,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -25.108410857209265,
+        "gross_pnl": -7.218754286809524,
+        "fees_paid": 17.88965657039974,
+        "fills": 723,
+        "maker_fills": 722,
+        "taker_fills": 1,
+        "max_drawdown": 25.201502303006066,
+        "halted": true,
+        "end_inventory": 0.0
+      }
+    },
+    "2026-11-06": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.160667208232013,
+        "gross_pnl": -1.6349509133290532,
+        "fees_paid": 23.52571629490296,
+        "fills": 1050,
+        "maker_fills": 1049,
+        "taker_fills": 1,
+        "max_drawdown": 25.160667208232013,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.201404795324052,
+        "gross_pnl": -1.533448819650772,
+        "fees_paid": 23.66795597567328,
+        "fills": 1066,
+        "maker_fills": 1065,
+        "taker_fills": 1,
+        "max_drawdown": 25.201404795324052,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -15.933686085891168,
+        "gross_pnl": 0.4513043902449603,
+        "fees_paid": 16.384990476136128,
+        "fills": 817,
+        "maker_fills": 817,
+        "taker_fills": 0,
+        "max_drawdown": 16.560012480743353,
+        "halted": false,
+        "end_inventory": 0.004608088948638345
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -15.62278381763349,
+        "gross_pnl": -0.822506081624887,
+        "fees_paid": 14.800277736008603,
+        "fills": 667,
+        "maker_fills": 667,
+        "taker_fills": 0,
+        "max_drawdown": 16.485662004832307,
+        "halted": false,
+        "end_inventory": 0.0031966499518189364
+      }
+    },
+    "2026-11-07": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.10225398113692,
+        "gross_pnl": -3.7990465204298154,
+        "fees_paid": 21.303207460707103,
+        "fills": 483,
+        "maker_fills": 482,
+        "taker_fills": 1,
+        "max_drawdown": 25.10225398113692,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.11698450566786,
+        "gross_pnl": -3.9571308780209407,
+        "fees_paid": 21.159853627646918,
+        "fills": 558,
+        "maker_fills": 557,
+        "taker_fills": 1,
+        "max_drawdown": 25.11698450566786,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -10.60084797369285,
+        "gross_pnl": -0.17540859406739528,
+        "fees_paid": 10.425439379625455,
+        "fills": 512,
+        "maker_fills": 512,
+        "taker_fills": 0,
+        "max_drawdown": 11.083229850024225,
+        "halted": false,
+        "end_inventory": 0.006594596003243926
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -0.5767520462253348,
+        "gross_pnl": -0.27675204622533484,
+        "fees_paid": 0.3,
+        "fills": 6,
+        "maker_fills": 6,
+        "taker_fills": 0,
+        "max_drawdown": 0.821431508885297,
+        "halted": false,
+        "end_inventory": -3.647829916101405e-06
+      }
+    },
+    "2026-11-08": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.23521386135542,
+        "gross_pnl": -4.215492176276424,
+        "fees_paid": 21.019721685078995,
+        "fills": 487,
+        "maker_fills": 486,
+        "taker_fills": 1,
+        "max_drawdown": 25.23521386135542,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.030567490256125,
+        "gross_pnl": -4.063596974131535,
+        "fees_paid": 20.96697051612459,
+        "fills": 500,
+        "maker_fills": 499,
+        "taker_fills": 1,
+        "max_drawdown": 25.030567490256125,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -13.590261665241798,
+        "gross_pnl": -1.1827054794378764,
+        "fees_paid": 12.407556185803921,
+        "fills": 461,
+        "maker_fills": 461,
+        "taker_fills": 0,
+        "max_drawdown": 14.609424538382711,
+        "halted": false,
+        "end_inventory": 0.003366328343720281
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -26.71825942440654,
+        "gross_pnl": -7.405581561290791,
+        "fees_paid": 19.31267786311575,
+        "fills": 600,
+        "maker_fills": 599,
+        "taker_fills": 1,
+        "max_drawdown": 27.108409900326137,
+        "halted": true,
+        "end_inventory": 0.0
+      }
+    },
+    "2026-11-09": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.28258480075806,
+        "gross_pnl": -1.70489900005229,
+        "fees_paid": 23.57768580070577,
+        "fills": 648,
+        "maker_fills": 647,
+        "taker_fills": 1,
+        "max_drawdown": 25.28258480075806,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.016210492609936,
+        "gross_pnl": -2.5856240586638677,
+        "fees_paid": 22.43058643394607,
+        "fills": 658,
+        "maker_fills": 657,
+        "taker_fills": 1,
+        "max_drawdown": 25.016210492609936,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -17.972378883175324,
+        "gross_pnl": 1.2476424511553645,
+        "fees_paid": 19.22002133433069,
+        "fills": 585,
+        "maker_fills": 585,
+        "taker_fills": 0,
+        "max_drawdown": 18.053685649478282,
+        "halted": false,
+        "end_inventory": 0.0006642167004571235
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -10.766074735757087,
+        "gross_pnl": -0.17519981217302671,
+        "fees_paid": 10.59087492358406,
+        "fills": 302,
+        "maker_fills": 302,
+        "taker_fills": 0,
+        "max_drawdown": 10.840944779559976,
+        "halted": false,
+        "end_inventory": -0.002717605945659363
+      }
+    },
+    "2026-11-10": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.187229119262398,
+        "gross_pnl": -3.4705544377836226,
+        "fees_paid": 21.716674681478775,
+        "fills": 439,
+        "maker_fills": 438,
+        "taker_fills": 1,
+        "max_drawdown": 25.187229119262398,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.23084037247162,
+        "gross_pnl": -3.514345269504801,
+        "fees_paid": 21.716495102966817,
+        "fills": 497,
+        "maker_fills": 496,
+        "taker_fills": 1,
+        "max_drawdown": 25.23084037247162,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -25.709070020212835,
+        "gross_pnl": -12.387574501231743,
+        "fees_paid": 13.321495518981092,
+        "fills": 681,
+        "maker_fills": 680,
+        "taker_fills": 1,
+        "max_drawdown": 25.709070020212835,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -25.257193308533743,
+        "gross_pnl": -2.3186558138144555,
+        "fees_paid": 22.938537494719288,
+        "fills": 1058,
+        "maker_fills": 1057,
+        "taker_fills": 1,
+        "max_drawdown": 26.57623944315955,
+        "halted": true,
+        "end_inventory": 0.0
+      }
+    },
+    "2026-11-11": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.092814126158643,
+        "gross_pnl": -3.0252094538189134,
+        "fees_paid": 22.06760467233973,
+        "fills": 689,
+        "maker_fills": 688,
+        "taker_fills": 1,
+        "max_drawdown": 25.092814126158643,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.26661800720943,
+        "gross_pnl": -3.411930177118421,
+        "fees_paid": 21.85468783009101,
+        "fills": 625,
+        "maker_fills": 624,
+        "taker_fills": 1,
+        "max_drawdown": 25.26661800720943,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -25.61015024010402,
+        "gross_pnl": 3.094046320713506,
+        "fees_paid": 28.704196560817525,
+        "fills": 1456,
+        "maker_fills": 1455,
+        "taker_fills": 1,
+        "max_drawdown": 25.61015024010402,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -10.932345999860999,
+        "gross_pnl": 0.7391099650969704,
+        "fees_paid": 11.67145596495797,
+        "fills": 505,
+        "maker_fills": 505,
+        "taker_fills": 0,
+        "max_drawdown": 12.39089831804477,
+        "halted": false,
+        "end_inventory": 0.0013896457165685316
+      }
+    },
+    "2026-11-12": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.18203499757854,
+        "gross_pnl": -3.13903175340889,
+        "fees_paid": 22.04300324416965,
+        "fills": 679,
+        "maker_fills": 678,
+        "taker_fills": 1,
+        "max_drawdown": 25.18203499757854,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.257865717640996,
+        "gross_pnl": -3.7616956100694914,
+        "fees_paid": 21.496170107571505,
+        "fills": 653,
+        "maker_fills": 652,
+        "taker_fills": 1,
+        "max_drawdown": 25.257865717640996,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -25.28647387503122,
+        "gross_pnl": -8.086448406976519,
+        "fees_paid": 17.2000254680547,
+        "fills": 1105,
+        "maker_fills": 1104,
+        "taker_fills": 1,
+        "max_drawdown": 25.28647387503122,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -21.274520084834933,
+        "gross_pnl": -1.4533485003295255,
+        "fees_paid": 19.821171584505407,
+        "fills": 865,
+        "maker_fills": 865,
+        "taker_fills": 0,
+        "max_drawdown": 23.43343807349879,
+        "halted": false,
+        "end_inventory": 0.006455794526883843
+      }
+    },
+    "2026-11-13": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.275177951465196,
+        "gross_pnl": 0.916837941547886,
+        "fees_paid": 26.19201589301308,
+        "fills": 969,
+        "maker_fills": 968,
+        "taker_fills": 1,
+        "max_drawdown": 25.275177951465196,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.19142167785928,
+        "gross_pnl": 0.21187583741225424,
+        "fees_paid": 25.403297515271536,
+        "fills": 925,
+        "maker_fills": 924,
+        "taker_fills": 1,
+        "max_drawdown": 25.19142167785928,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -25.617603123485424,
+        "gross_pnl": -22.800135776760555,
+        "fees_paid": 2.81746734672487,
+        "fills": 114,
+        "maker_fills": 113,
+        "taker_fills": 1,
+        "max_drawdown": 25.617603123485424,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -26.190021043346007,
+        "gross_pnl": -6.289635353084709,
+        "fees_paid": 19.9003856902613,
+        "fills": 958,
+        "maker_fills": 957,
+        "taker_fills": 1,
+        "max_drawdown": 26.489889516005945,
+        "halted": true,
+        "end_inventory": 0.0
+      }
+    },
+    "2026-11-14": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.015505917060835,
+        "gross_pnl": -3.659948761260214,
+        "fees_paid": 21.35555715580062,
+        "fills": 654,
+        "maker_fills": 653,
+        "taker_fills": 1,
+        "max_drawdown": 25.015505917060835,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.1060116988795,
+        "gross_pnl": -3.673081355329508,
+        "fees_paid": 21.43293034354999,
+        "fills": 664,
+        "maker_fills": 663,
+        "taker_fills": 1,
+        "max_drawdown": 25.1060116988795,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -25.69013621857806,
+        "gross_pnl": -9.64498549933803,
+        "fees_paid": 16.04515071924003,
+        "fills": 743,
+        "maker_fills": 742,
+        "taker_fills": 1,
+        "max_drawdown": 25.69013621857806,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -25.337490337233987,
+        "gross_pnl": -7.175176505483478,
+        "fees_paid": 18.16231383175051,
+        "fills": 742,
+        "maker_fills": 741,
+        "taker_fills": 1,
+        "max_drawdown": 25.337490337233987,
+        "halted": true,
+        "end_inventory": 0.0
+      }
+    },
+    "2026-11-15": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.26687685921695,
+        "gross_pnl": 3.2373348461751483,
+        "fees_paid": 28.5042117053921,
+        "fills": 1191,
+        "maker_fills": 1190,
+        "taker_fills": 1,
+        "max_drawdown": 28.43809396299264,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.044383964366805,
+        "gross_pnl": -1.5671562373348067,
+        "fees_paid": 23.477227727032,
+        "fills": 923,
+        "maker_fills": 922,
+        "taker_fills": 1,
+        "max_drawdown": 25.044383964366805,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -8.924452001700189,
+        "gross_pnl": 6.672062419065952,
+        "fees_paid": 15.596514420766141,
+        "fills": 663,
+        "maker_fills": 663,
+        "taker_fills": 0,
+        "max_drawdown": 16.18729601228793,
+        "halted": false,
+        "end_inventory": 0.0015655993406668233
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -25.058927055979993,
+        "gross_pnl": -3.381543755727094,
+        "fees_paid": 21.6773833002529,
+        "fills": 991,
+        "maker_fills": 990,
+        "taker_fills": 1,
+        "max_drawdown": 25.26564485698229,
+        "halted": true,
+        "end_inventory": 0.0
+      }
+    },
+    "2026-11-16": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.06917634422348,
+        "gross_pnl": 0.19712106041208344,
+        "fees_paid": 25.266297404635562,
+        "fills": 912,
+        "maker_fills": 911,
+        "taker_fills": 1,
+        "max_drawdown": 25.06917634422348,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.304455285030826,
+        "gross_pnl": -1.7373602342190964,
+        "fees_paid": 23.56709505081173,
+        "fills": 795,
+        "maker_fills": 794,
+        "taker_fills": 1,
+        "max_drawdown": 25.304455285030826,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -13.243099803543188,
+        "gross_pnl": 0.8795062322607379,
+        "fees_paid": 14.122606035803926,
+        "fills": 510,
+        "maker_fills": 510,
+        "taker_fills": 0,
+        "max_drawdown": 14.319044555830502,
+        "halted": false,
+        "end_inventory": 0.0011276231907959935
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -25.19069701287907,
+        "gross_pnl": -3.578787151219533,
+        "fees_paid": 21.611909861659537,
+        "fills": 946,
+        "maker_fills": 945,
+        "taker_fills": 1,
+        "max_drawdown": 25.411531599950706,
+        "halted": true,
+        "end_inventory": 0.0
+      }
+    },
+    "2026-11-17": {
+      "jev_gated": {
+        "hours": 24.0,
+        "net_pnl": -25.122453757109973,
+        "gross_pnl": -3.412820241327264,
+        "fees_paid": 21.70963351578271,
+        "fills": 912,
+        "maker_fills": 911,
+        "taker_fills": 1,
+        "max_drawdown": 25.122453757109973,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 24.0,
+        "net_pnl": -25.124758679242426,
+        "gross_pnl": -3.2403953148126305,
+        "fees_paid": 21.884363364429795,
+        "fills": 863,
+        "maker_fills": 862,
+        "taker_fills": 1,
+        "max_drawdown": 25.124758679242426,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 24.0,
+        "net_pnl": -18.460788086358946,
+        "gross_pnl": -1.6248045018483133,
+        "fees_paid": 16.835983584510632,
+        "fills": 672,
+        "maker_fills": 672,
+        "taker_fills": 0,
+        "max_drawdown": 20.701536366444714,
+        "halted": false,
+        "end_inventory": -0.007696849468206115
+      },
+      "baseline": {
+        "hours": 24.0,
+        "net_pnl": -25.46489429728905,
+        "gross_pnl": -1.7187177806619154,
+        "fees_paid": 23.746176516627134,
+        "fills": 911,
+        "maker_fills": 910,
+        "taker_fills": 1,
+        "max_drawdown": 25.46489429728905,
+        "halted": true,
+        "end_inventory": 0.0
+      }
+    },
+    "2026-11-18": {
+      "jev_gated": {
+        "hours": 5.81,
+        "net_pnl": -25.102449105003288,
+        "gross_pnl": -1.018064758873244,
+        "fees_paid": 24.084384346130044,
+        "fills": 1139,
+        "maker_fills": 1138,
+        "taker_fills": 1,
+        "max_drawdown": 25.102449105003288,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "jev_ungated": {
+        "hours": 5.81,
+        "net_pnl": -25.093975029758013,
+        "gross_pnl": -1.1738881140582045,
+        "fees_paid": 23.92008691569981,
+        "fills": 1082,
+        "maker_fills": 1081,
+        "taker_fills": 1,
+        "max_drawdown": 25.093975029758013,
+        "halted": true,
+        "end_inventory": 0.0
+      },
+      "code_only": {
+        "hours": 5.81,
+        "net_pnl": 0.8392348491138364,
+        "gross_pnl": 4.337643507373565,
+        "fees_paid": 3.4984086582597285,
+        "fills": 266,
+        "maker_fills": 266,
+        "taker_fills": 0,
+        "max_drawdown": 1.8549416445955842,
+        "halted": false,
+        "end_inventory": -0.003065656486391997
+      },
+      "baseline": {
+        "hours": 5.81,
+        "net_pnl": -1.6107122763031327,
+        "gross_pnl": 0.3392877236968661,
+        "fees_paid": 1.9499999999999988,
+        "fills": 82,
+        "maker_fills": 82,
+        "taker_fills": 0,
+        "max_drawdown": 2.1333081661470317,
+        "halted": false,
+        "end_inventory": -0.002313291404566686
+      }
+    }
+  }
+}

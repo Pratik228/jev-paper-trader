@@ -100,3 +100,22 @@ def test_crisis_kill_switch_alerts(tmp_path: Path) -> None:
     assert read_jsonl(tmp_path / "outcomes_jev_ungated.jsonl")[-1]["halted"] is True
     assert read_jsonl(tmp_path / "outcomes_baseline.jsonl")[-1]["halted"] is False
     assert "flatten" in read_jsonl(tmp_path / "alerts.jsonl")[0]["text"]
+
+
+def test_streamed_replay_matches_list_replay_and_logs_code_only(tmp_path: Path) -> None:
+    run_replay(_events(), _config(), tmp_path / "list")
+    run_replay(iter(_events()), _config(), tmp_path / "stream")
+    for name in ("jev_gated", "jev_ungated", "code_only", "baseline"):
+        listed = read_jsonl(tmp_path / "list" / f"outcomes_{name}.jsonl")
+        streamed = read_jsonl(tmp_path / "stream" / f"outcomes_{name}.jsonl")
+        assert listed and listed == streamed
+    assert all(row["decision"]["source"] != "jev" for row in read_jsonl(tmp_path / "list" / "outcomes_code_only.jsonl"))
+
+
+def test_reader_skips_a_torn_last_line(tmp_path: Path) -> None:
+    from jev_paper.data.feed import event_to_dict, read_events
+    import json
+
+    tape = tmp_path / "day.jsonl"
+    tape.write_text("".join(json.dumps(event_to_dict(e)) + "\n" for e in _events()) + '{"type": "bo')
+    assert len(list(read_events(tape))) == len(_events())

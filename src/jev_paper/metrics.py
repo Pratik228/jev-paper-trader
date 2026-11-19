@@ -7,7 +7,7 @@ from typing import Any
 
 from jev_paper.jsonlog import read_jsonl
 
-STRATEGIES = ("jev_gated", "jev_ungated", "baseline")
+STRATEGIES = ("jev_gated", "jev_ungated", "code_only", "baseline")
 LATENCY_BINS = (50, 100, 250, 500, 1000)
 
 

@@ -7,6 +7,7 @@ name = "jev-paper-trader"
 version = "0.1.0"
 description = "Paper market maker. Code decides, Jev judges, risk can veto."
 requires-python = ">=3.10"
+license = { file = "LICENSE" }
 dependencies = [
   "pyyaml>=6",
   "websocket-client>=1.8",
